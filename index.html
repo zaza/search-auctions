@@ -1,0 +1,23 @@
+<head>
+<script type="text/javascript">
+    function search(){
+        var query = document.getElementById("query").value;
+        query = query.replace(" ", "+"); 
+        openInNewTab("http://tablica.pl/krakow/?search[dist]=10&q="+query);
+        openInNewTab("http://www.swistak.pl/szukaj/"+query);
+        openInNewTab("http://www.gumtree.pl/fp-"+query+"/krakow/l3200208?isSearchForm=true");
+        openInNewTab("http://allegro.pl/listing/listing.php?string="+query+"&search_scope=");
+    }
+    function openInNewTab(url )
+	{
+  		var win=window.open(url, '_blank');
+  		//win.focus();
+	}
+</script>
+</head>
+<body>
+<form action="#" onsubmit="return false;">
+    <input type="text" id="query"/>
+    <button id="submit" onclick="search()">Go</button>
+</form>
+</body>
