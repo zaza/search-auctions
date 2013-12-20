@@ -7,29 +7,27 @@
     span {
         display: block;
         overflow: hidden;
-        padding-right:10px;
-        padding-left:10px;
+        padding-right: 10px;
+        padding-left: 10px;
     }
     button{
         float: right;
     }
     input, button {
-        font-size:xx-large;
+        font-size: xx-large;
     }
 </style>
 <script type="text/javascript">
     function search(){
         var query = document.getElementById("query").value;
         query = query.replace(" ", "+"); 
+        window.location.href = "http://www.gumtree.pl/fp-"+query+"/krakow/l3200208?isSearchForm=true";
         openInNewTab("http://tablica.pl/krakow/?search[dist]=10&q="+query);
         openInNewTab("http://www.swistak.pl/szukaj/"+query);
-        openInNewTab("http://www.gumtree.pl/fp-"+query+"/krakow/l3200208?isSearchForm=true");
-        openInNewTab("http://allegro.pl/listing/listing.php?string="+query+"&search_scope=");
+        openInNewTab("http://allegro.pl/listing/listing.php?string="+query+"&search_scope");
     }
-    function openInNewTab(url)
-	{
-  		var win=window.open(url, '_blank');
-  		//win.focus();
+    function openInNewTab(url){
+  		var win = window.open(url, "_blank");
 	}
 </script>
 </head>
