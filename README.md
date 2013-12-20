@@ -1,4 +1,10 @@
 search-auctions
 ===============
 
-Przeszukuj kilka serwisów aukcyjnych równocześnie.
+[Przeszukuj kilka serwisów aukcyjnych równocześnie](http://zaza.github.io/search-auctions/).
+
+Aktualnie wspierane strony:
+* Allegro
+* Gumtree
+* Swistak
+* Tablica
