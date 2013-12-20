@@ -1,4 +1,22 @@
 <head>
+<title>search-auctions</title>
+<style type="text/css">
+    span > input{
+        width: 100%;
+    }
+    span {
+        display: block;
+        overflow: hidden;
+        padding-right:10px;
+        padding-left:10px;
+    }
+    button{
+        float: right;
+    }
+    input, button {
+        font-size:xx-large;
+    }
+</style>
 <script type="text/javascript">
     function search(){
         var query = document.getElementById("query").value;
@@ -8,7 +26,7 @@
         openInNewTab("http://www.gumtree.pl/fp-"+query+"/krakow/l3200208?isSearchForm=true");
         openInNewTab("http://allegro.pl/listing/listing.php?string="+query+"&search_scope=");
     }
-    function openInNewTab(url )
+    function openInNewTab(url)
 	{
   		var win=window.open(url, '_blank');
   		//win.focus();
@@ -17,7 +35,7 @@
 </head>
 <body>
 <form action="#" onsubmit="return false;">
-    <input type="text" id="query"/>
-    <button id="submit" onclick="search()">Go</button>
+    <button id="submit" onclick="search()">Szukaj</button>
+    <span><input type="text" id="query" title="Szukaj" /></span>
 </form>
 </body>
