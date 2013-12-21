@@ -1,23 +1,10 @@
+<html>
 <head>
 <title>search-auctions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="shortcut icon" href="favicon.ico" />
-<style type="text/css">
-    span > input{
-        width: 100%;
-    }
-    span {
-        display: block;
-        overflow: hidden;
-        padding-right: 10px;
-        padding-left: 10px;
-    }
-    button{
-        float: right;
-    }
-    input, button {
-        font-size: xx-large;
-    }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript">
     function search(){
         var query = document.getElementById("query").value;
@@ -31,10 +18,43 @@
   		var win = window.open(url, "_blank");
 	}
 </script>
+
 </head>
 <body>
-<form action="#" onsubmit="return false;">
-    <button id="submit" onclick="search()">Szukaj</button>
-    <span><input type="text" id="query" title="Szukaj" /></span>
-</form>
+
+<div class="container">
+
+    <div class="page-header">
+        <h1>Szukaj <small>na kilku serwisach aukcyjnych równocześnie</small></h1>
+    </div>
+
+    <form action="#" onsubmit="return false;">
+    <div class="input-group input-group-lg">
+        
+      <input type="text" class="form-control" placeholder="czego dusza pragnie?" id="query"/>
+      <span class="input-group-btn">
+        <button id="submit" class="btn btn-default" onclick="search()">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </span>
+  
+    </div>
+    </form>
+
+</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript">
+ 
+$("#query").keyup(function(event){
+    if(event.keyCode == 13){
+        $("#submit").click();
+    }
+});
+ 
+</script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 </body>
+</html>
