@@ -8,11 +8,16 @@
 <script type="text/javascript">
     function search(){
         var query = document.getElementById("query").value;
-        query = query.replace(" ", "+"); 
-        window.location.href = "http://www.gumtree.pl/fp-"+query+"/krakow/l3200208?isSearchForm=true";
-        openInNewTab("http://tablica.pl/krakow/?search[dist]=10&q="+query);
-        openInNewTab("http://www.swistak.pl/szukaj/"+query);
-        openInNewTab("http://allegro.pl/listing/listing.php?string="+query+"&search_scope");
+        query = query.replace(" ", "+");
+
+        // allegro is always checked
+        window.location.href = "http://allegro.pl/listing/listing.php?string="+query+"&search_scope";
+        if (document.getElementById("tablice").checked)
+          openInNewTab("http://tablica.pl/krakow/?search[dist]=10&q="+query);
+        if (document.getElementById("swistak").checked)
+          openInNewTab("http://www.swistak.pl/szukaj/"+query);
+        if (document.getElementById("gumtree").checked)
+        openInNewTab("http://www.gumtree.pl/fp-"+query+"/krakow/l3200208?isSearchForm=true");
     }
     function openInNewTab(url){
   		var win = window.open(url, "_blank");
@@ -39,6 +44,46 @@
       </span>
   
     </div>
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#advancedOptions">
+          Dodatkowe opcje
+        </a>
+      </h4>
+    </div>
+    <div id="advancedOptions" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="col-sm-10">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="allegro" checked disabled>Allegro</input>
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="swistak" checked>Świstak</input>
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="gumtree" checked>Gumtree</input>
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="tablice" checked>Tablica</input>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     </form>
 
 </div>
