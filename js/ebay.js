@@ -1,6 +1,5 @@
 function Ebay(query, location) {
 	this.q = query;
-	// TODO: dodaj kody dla pozostalych miast
 	if (location == "gdansk")
 		this.loc = "80-001";
 	else if (location == "katowice")
