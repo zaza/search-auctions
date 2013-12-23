@@ -23,5 +23,5 @@ function Sprzedajemy(query, location) {
 }
 
 Sprzedajemy.prototype.getSearchUrl = function() {
-	return "http://sprzedajemy.pl/szukaj?inp_category_id=5&inp_location_id="+this.loc+"&inp_text[v]="+this.q+"&offset=0
+	return "http://sprzedajemy.pl/szukaj?inp_category_id=5&inp_location_id="+this.loc+"&inp_text[v]="+this.q+"&offset=0";
 }

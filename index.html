@@ -5,6 +5,7 @@
   <link rel="shortcut icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/sticky-footer-navbar.css" rel="stylesheet">
   <script src="js/allegro.js"></script>
   <script src="js/swistak.js"></script>
   <script src="js/sprzedajemy.js"></script>
@@ -64,6 +65,8 @@
   </script>
 </head>
 <body>
+
+  <div id="wrap">
 
   <div class="container">
 
@@ -155,8 +158,17 @@
   </div>
 </div>
 
+</div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted text-right">uwagi i sugestie zgłaszać <a href="https://github.com/zaza/search-auctions/issues?state=open">tutaj</a></p>
+      </div>
+    </div>
+
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script type="text/javascript">
     $('#query').focus();
     // initial selection
@@ -166,14 +178,13 @@
     $("#gumtree").attr("checked", isSiteEnabled("gumtree"));
     $("#tablica").attr("checked", isSiteEnabled("tablica"));
 
+    // dropdown updates
     $('.dropdown-menu li a').click(function () {
-    var newHeading = $(this).text();
-    var $heading = $('#location');
-    var $caret = $('.caret', $heading);
-    $heading.html(newHeading + ' ').append($caret);
-});
+      var newHeading = $(this).text();
+      var $heading = $('#location');
+      var $caret = $('.caret', $heading);
+      $heading.html(newHeading + ' ').append($caret);
+    });
   </script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
