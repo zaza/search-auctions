@@ -1,8 +1,24 @@
 function Ebay(query, location) {
 	this.q = query;
 	// TODO: dodaj kody dla pozostalych miast
-	if (location == "krakow")
-		this.loc = "31-425";
+	if (location == "gdansk")
+		this.loc = "80-001";
+	else if (location == "katowice")
+		this.loc = "40-001";
+	else if (location == "krakow")
+		this.loc = "30-001";
+	else if (location == "lublin")
+		this.loc = "20-001";
+	else if (location == "lodz")
+		this.loc = "90-001";
+	else if (location == "poznan")
+		this.loc = "60-001";
+	else if (location == "szczecin")
+		this.loc = "70-001";
+	else if (location == "warszawa")
+		this.loc = "00-001";
+	else if (location == "wroclaw")
+		this.loc = "50-001";
 	else 
 		this.loc = location;
 }
