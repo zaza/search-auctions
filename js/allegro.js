@@ -4,8 +4,8 @@ function Allegro(query, location) {
 }
 
 Allegro.prototype.getSearchUrl = function() {
-	if (this.loc == null)
-		return "http://allegro.pl/listing/listing.php?string="+this.q+"&search_scope";
-	else
-		return "http://allegro.pl/listing/listing.php?string="+this.q+"&search_scope=&city="+this.loc+"&postcode_enabled=2";
+	var url = "http://allegro.pl/listing/listing.php?string="+this.q+"&search_scope";
+	if (this.loc != null)
+		url = url + "=&city="+this.loc+"&postcode_enabled=2";
+	return url;
 }
