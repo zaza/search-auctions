@@ -5,22 +5,39 @@
   <link rel="shortcut icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <script src="js/allegro.js"></script>
+  <script src="js/swistak.js"></script>
+  <script src="js/sprzedajemy.js"></script>
+  <script src="js/tablica.js"></script>
+  <script src="js/gumtree.js"></script>
+  <script src="js/ebay.js"></script>
   <script type="text/javascript">
   function search(){
     var q = document.getElementById("query").value;
     q = q.replace(" ", "+");
+    var loc = $('#location').text();
+    if (loc == 'Cała Polska') {
+      loc = null;
+    } else {
+      loc = loc.toLowerCase();
+      loc = loc.replace('ł', 'l');
+      loc = loc.replace('ń', 'n');
+      loc = loc.replace('ó', 'o');
+      loc = loc.replace('ź', 'z');
+      loc = loc.trim();
+    }
 
-    // allegro is always checked
-    window.location.href = "http://allegro.pl/listing/listing.php?string=" + q + "&search_scope";
-    openInNewTab("ebay", "http://www.ebay.pl/sch/i.html?_sacat=0&_okw=&_oexkw=&_adv=1&_udlo=&_udhi=&_ftrt=901&_ftrv=1&_sabdlo=&_sabdhi=&_samilow=&_samihi=&_sadis=200&_fpos=&LH_SALE_CURRENCY=0&_sop=12&_dmd=1&_ipg=50&_nkw=" + q + "&rt=nc&LH_PrefLoc=1&_arr=1");
-    openInNewTab("sprzedajemy", "http://sprzedajemy.pl/szukaj?srchm=hp&inp_text=" + q + "&inp_location_id=1&inp_category_id=");
-    openInNewTab("tablica", "http://tablica.pl/krakow/?search[dist]=10&q=" + q);
-    openInNewTab("swistak", "http://www.swistak.pl/szukaj/"  + q);
-    openInNewTab("gumtree", "http://www.gumtree.pl/fp-" + q + "/krakow/l3200208?isSearchForm=true");
+    // Allegro is always checked
+    window.location.href = new Allegro(q, loc).getSearchUrl();
+    openInNewTab("ebay", new Ebay(q, loc));
+    openInNewTab("sprzedajemy", new Sprzedajemy(q, loc));
+    openInNewTab("tablica", new Tablica(q, loc));
+    openInNewTab("swistak", new Swistak(q, loc));
+    openInNewTab("gumtree", new Gumtree(q, loc));
   }
-  function openInNewTab(id, url){
+  function openInNewTab(id, handler){
     if (document.getElementById(id).checked) {
-      window.open(url, "_blank");
+      window.open(handler.getSearchUrl(), "_blank");
       enableSite(id);
     } else {
       disableSite(id);
@@ -56,7 +73,24 @@
 
     <form action="#" onsubmit="return false;">
     <div class="input-group input-group-lg">
-        
+
+      <span class="input-group-btn">
+      <button id="location" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Cała Polska<span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Cała Polska</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Gdańsk</a></li>
+        <li><a href="#">Katowice</a></li>
+        <li><a href="#">Kraków</a></li> <!-- l3200208 -->
+        <li><a href="#">Lublin</a></li>
+        <li><a href="#">Łódź</a></li> <!-- l3200183 -->
+        <li><a href="#">Poznań</a></li>
+        <li><a href="#">Szczecin</a></li>
+        <li><a href="#">Warszawa</a></li>
+        <li><a href="#">Wrocław</a></li>
+      </ul>
+      </span> 
+     
       <input type="text" class="form-control" placeholder="czego dusza pragnie?" id="query"/>
       <span class="input-group-btn">
         <button id="submit" class="btn btn-default" onclick="search()">
@@ -131,6 +165,13 @@
     $("#swistak").attr("checked", isSiteEnabled("swistak"));
     $("#gumtree").attr("checked", isSiteEnabled("gumtree"));
     $("#tablica").attr("checked", isSiteEnabled("tablica"));
+
+    $('.dropdown-menu li a').click(function () {
+    var newHeading = $(this).text();
+    var $heading = $('#location');
+    var $caret = $('.caret', $heading);
+    $heading.html(newHeading + ' ').append($caret);
+});
   </script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/bootstrap.min.js"></script>
