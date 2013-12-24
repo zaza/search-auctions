@@ -5,8 +5,8 @@ search-auctions
 
 Aktualnie wspierane strony:
 * Allegro
+* eBay
 * Gumtree
+* Sprzedajemy
 * Świstak
 * Tablica
-* eBay
-* Sprzedajemy

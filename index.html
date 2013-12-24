@@ -7,13 +7,13 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/sticky-footer-navbar.css" rel="stylesheet">
   <script src="js/allegro.js"></script>
-  <script src="js/swistak.js"></script>
-  <script src="js/sprzedajemy.js"></script>
-  <script src="js/tablica.js"></script>
-  <script src="js/gumtree.js"></script>
   <script src="js/ebay.js"></script>
+  <script src="js/gumtree.js"></script>
+  <script src="js/sprzedajemy.js"></script>
+  <script src="js/swistak.js"></script>
+  <script src="js/tablica.js"></script>
   <script type="text/javascript">
-  function search(){
+  function search() {
     var q = document.getElementById("query").value;
     q = q.replace(" ", "+");
     var loc = $('#location').text();
@@ -31,12 +31,12 @@
     // Allegro is always checked
     window.location.href = new Allegro(q, loc).getSearchUrl();
     openInNewTab("ebay", new Ebay(q, loc));
-    openInNewTab("sprzedajemy", new Sprzedajemy(q, loc));
-    openInNewTab("tablica", new Tablica(q, loc));
-    openInNewTab("swistak", new Swistak(q, loc));
     openInNewTab("gumtree", new Gumtree(q, loc));
+    openInNewTab("sprzedajemy", new Sprzedajemy(q, loc));
+    openInNewTab("swistak", new Swistak(q, loc));
+    openInNewTab("tablica", new Tablica(q, loc));
   }
-  function openInNewTab(id, handler){
+  function openInNewTab(id, handler) {
     if (document.getElementById(id).checked) {
       window.open(handler.getSearchUrl(), "_blank");
       enableSite(id);
@@ -128,6 +128,11 @@
                  </label>
                 </div>
                 <div class="checkbox">
+                  <label>
+                   <input type="checkbox" id="gumtree">Gumtree</input>
+                 </label>
+                </div>
+                <div class="checkbox">
                  <label>
                    <input type="checkbox" id="sprzedajemy">Sprzedajemy</input>
                  </label>
@@ -135,11 +140,6 @@
                 <div class="checkbox">
                  <label>
                    <input type="checkbox" id="swistak">Świstak</input>
-                 </label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                   <input type="checkbox" id="gumtree">Gumtree</input>
                  </label>
                 </div>
                 <div class="checkbox">
@@ -171,14 +171,16 @@
   <script src="js/bootstrap.min.js"></script>
   <script type="text/javascript">
     $('#query').focus();
+
     // initial selection
+    //$("#allegro").attr("checked", isSiteEnabled("allegro"));
     $("#ebay").attr("checked", isSiteEnabled("ebay"));
+    $("#gumtree").attr("checked", isSiteEnabled("gumtree"));
     $("#sprzedajemy").attr("checked", isSiteEnabled("sprzedajemy"));
     $("#swistak").attr("checked", isSiteEnabled("swistak"));
-    $("#gumtree").attr("checked", isSiteEnabled("gumtree"));
     $("#tablica").attr("checked", isSiteEnabled("tablica"));
 
-    // dropdown updates
+    // dropdown update
     $('.dropdown-menu li a').click(function () {
       var newHeading = $(this).text();
       var $heading = $('#location');
