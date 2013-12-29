@@ -16,16 +16,17 @@
   function search() {
     var q = document.getElementById("query").value;
     q = q.replace(" ", "+");
-    var loc = $('#location').text();
+    var loc = $('#location').text().trim();
     if (loc == 'Cała Polska') {
       loc = null;
+      delete localStorage.selected_location;
     } else {
       loc = loc.toLowerCase();
       loc = loc.replace('ł', 'l');
       loc = loc.replace('ń', 'n');
       loc = loc.replace('ó', 'o');
       loc = loc.replace('ź', 'z');
-      loc = loc.trim();
+      localStorage.selected_location = loc;
     }
 
     // Allegro is always checked
@@ -62,6 +63,11 @@
     if (typeof localStorage.disabled_sites != "undefined" && isSiteDisabled(id))
       localStorage.disabled_sites = localStorage.disabled_sites.replace(id, ""); 
   }
+  function setLocation(loc) {
+    var $heading = $('#location');
+    var $caret = $('.caret', $heading);
+    $heading.html(loc + ' ').append($caret);
+  }
   </script>
 </head>
 <body>
@@ -78,19 +84,19 @@
     <div class="input-group input-group-lg">
 
       <span class="input-group-btn">
-      <button id="location" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Cała Polska<span class="caret"></span></button>
+      <button id="location" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Cała Polska <span class="caret"></span></button>
       <ul class="dropdown-menu" role="menu">
         <li><a href="#">Cała Polska</a></li>
         <li class="divider"></li>
-        <li><a href="#">Gdańsk</a></li>
-        <li><a href="#">Katowice</a></li>
-        <li><a href="#">Kraków</a></li>
-        <li><a href="#">Lublin</a></li>
-        <li><a href="#">Łódź</a></li>
-        <li><a href="#">Poznań</a></li>
-        <li><a href="#">Szczecin</a></li>
-        <li><a href="#">Warszawa</a></li>
-        <li><a href="#">Wrocław</a></li>
+        <li><a href="#" id="gdansk">Gdańsk</a></li>
+        <li><a href="#" id="katowice">Katowice</a></li>
+        <li><a href="#" id="krakow">Kraków</a></li>
+        <li><a href="#" id="lublin">Lublin</a></li>
+        <li><a href="#" id="lodz">Łódź</a></li>
+        <li><a href="#" id="poznan">Poznań</a></li>
+        <li><a href="#" id="szczecin">Szczecin</a></li>
+        <li><a href="#" id="warszawa">Warszawa</a></li>
+        <li><a href="#" id="wroclaw">Wrocław</a></li>
       </ul>
       </span> 
      
@@ -180,12 +186,16 @@
     $("#swistak").attr("checked", isSiteEnabled("swistak"));
     $("#tablica").attr("checked", isSiteEnabled("tablica"));
 
+    var loc = localStorage.selected_location;
+    if (loc != null) {
+      var savedHeading = $('#' + loc).text();
+      setLocation(savedHeading);
+    }
+
     // dropdown update
     $('.dropdown-menu li a').click(function () {
       var newHeading = $(this).text();
-      var $heading = $('#location');
-      var $caret = $('.caret', $heading);
-      $heading.html(newHeading + ' ').append($caret);
+      setLocation(newHeading);
     });
   </script>
   <script type="text/javascript">
@@ -200,6 +210,6 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
-</script>
+  </script>
 </body>
 </html>
