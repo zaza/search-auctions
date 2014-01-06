@@ -13,7 +13,17 @@
   <script src="js/swistak.js"></script>
   <script src="js/tablica.js"></script>
   <script type="text/javascript">
+  var isFirstToOpen = true; // global on purpose
   function search() {
+
+    // double-checking
+    if (shouldShowAlert())  {
+      $(".alert").alert('open');
+      return;
+    } else {
+      $(".alert").alert('close');
+    }
+
     var q = document.getElementById("query").value;
     q = q.replace(" ", "+");
     var loc = $('#location').text().trim();
@@ -28,9 +38,8 @@
       loc = loc.replace('ź', 'z');
       localStorage.selected_location = loc;
     }
-
-    // Allegro is always checked, see https://github.com/zaza/search-auctions/issues/11
-    window.location.href = new Allegro(q, loc).getSearchUrl();
+    isFirstToOpen = true; // reset
+    openInNewTab("allegro", new Allegro(q, loc));
     openInNewTab("ebay", new Ebay(q, loc));
     openInNewTab("gumtree", new Gumtree(q, loc));
     openInNewTab("sprzedajemy", new Sprzedajemy(q, loc));
@@ -39,7 +48,13 @@
   }
   function openInNewTab(id, handler) {
     if (document.getElementById(id).checked) {
-      window.open(handler.getSearchUrl(), "_blank");
+      if (isFirstToOpen) {
+        isFirstToOpen = false; // following pages should open in new windows
+        window.location.href = handler.getSearchUrl();
+      } else {
+        isFirstToOpen = false; // following pages should open in new windows
+        window.open(handler.getSearchUrl(), "_blank");
+      }
       enableSite(id);
     } else {
       disableSite(id);
@@ -67,6 +82,16 @@
     var $heading = $('#location');
     var $caret = $('.caret', $heading);
     $heading.html(loc + ' ').append($caret);
+  }
+  function shouldShowAlert(id, was) {
+    if (was === false) // don't return for 'undefined'
+      return false;
+    var checkboxes=["allegro", "ebay", "gumtree", "sprzedajemy", "swistak", "tablica"];
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (id !== checkboxes[i] && $('#'+checkboxes[i]).parent().prop('class').indexOf('active') != -1)
+        return false; // found active (checked) site
+    };
+    return true;
   }
   </script>
 </head>
@@ -114,8 +139,7 @@
 
     <div style="text-align: center">
       <div class="btn-group" data-toggle="buttons">
-        <!-- Allegro is always checked (active), see https://github.com/zaza/search-auctions/issues/11 -->
-        <label class="btn btn-default active" disabled="disabled"><input type="checkbox" id="allegro">Allegro</label>
+        <label class="btn btn-default"><input type="checkbox" id="allegro">Allegro</label>
         <label class="btn btn-default"><input type="checkbox" id="ebay">eBay</label>
         <label class="btn btn-default"><input type="checkbox" id="gumtree">Gumtree</label>
         <label class="btn btn-default"><input type="checkbox" id="sprzedajemy">Sprzedajemy.pl</label>
@@ -125,6 +149,8 @@
     </div>
 
     </form>
+
+    <div class="alert alert-warning">Przynajmniej jeden serwis musi być wybrany</div>
 
   </div>
 </div>
@@ -144,13 +170,14 @@
     $('#query').focus();
 
     // restore saved selection
-    // Allegro is always checked (toggled), see https://github.com/zaza/search-auctions/issues/11
-    //$('#allegro').parent().button('toggle');
+    if (isSiteEnabled("allegro")) $('#allegro').parent().button('toggle');
     if (isSiteEnabled("ebay")) $("#ebay").parent().button('toggle');
     if (isSiteEnabled("gumtree")) $("#gumtree").parent().button('toggle');
     if (isSiteEnabled("sprzedajemy")) $("#sprzedajemy").parent().button('toggle');
     if (isSiteEnabled("swistak")) $("#swistak").parent().button('toggle');
     if (isSiteEnabled("tablica")) $("#tablica").parent().button('toggle');
+
+    if (!shouldShowAlert()) $(".alert").hide();
 
     var loc = localStorage.selected_location;
     if (loc != null) {
@@ -162,6 +189,21 @@
     $('.dropdown-menu li a').click(function () {
       var newHeading = $(this).text();
       setLocation(newHeading);
+    });
+
+    // http://stackoverflow.com/questions/10903526/how-to-toggle-a-bootstrap-alert-on-and-off-with-button-click
+    $('.close').click(function() {
+      $('.alert').hide();
+    });
+
+    $('body').on('click', '.btn-group', function (e) {
+      var id = $(e.target).children("input").attr("id");
+      var was = e.target.control.checked;
+      if (shouldShowAlert(id, was)) {
+        $(".alert").show();
+      } else {
+        $(".alert").hide();
+      }
     });
   </script>
   <script type="text/javascript">
