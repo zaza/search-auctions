@@ -9,4 +9,4 @@ Aktualnie wspierane strony:
 * Gumtree
 * Sprzedajemy
 * Świstak
-* Tablica
+* OLX (dawniej Tablica)
