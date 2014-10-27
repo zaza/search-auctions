@@ -7,6 +7,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/sticky-footer-navbar.css" rel="stylesheet">
   <script src="js/allegro.js"></script>
+  <script src="js/aukcjefm.js"></script>
   <script src="js/ebay.js"></script>
   <script src="js/gumtree.js"></script>
   <script src="js/sprzedajemy.js"></script>
@@ -40,6 +41,7 @@
     }
     isFirstToOpen = true; // reset
     openInNewTab("allegro", new Allegro(q, loc));
+    openInNewTab("aukcjefm", new AukcjeFm(q, loc));
     openInNewTab("ebay", new Ebay(q, loc));
     openInNewTab("gumtree", new Gumtree(q, loc));
     openInNewTab("sprzedajemy", new Sprzedajemy(q, loc));
@@ -86,7 +88,7 @@
   function shouldShowAlert(id, was) {
     if (was === false) // don't return for 'undefined'
       return false;
-    var checkboxes=["allegro", "ebay", "gumtree", "sprzedajemy", "swistak", "tablica"];
+    var checkboxes=["allegro", "aukcjefm", "ebay", "gumtree", "sprzedajemy", "swistak", "tablica"];
     for (var i = 0; i < checkboxes.length; i++) {
       if (id !== checkboxes[i] && $('#'+checkboxes[i]).parent().prop('class').indexOf('active') != -1)
         return false; // found active (checked) site
@@ -140,6 +142,7 @@
     <div style="text-align: center">
       <div class="btn-group" data-toggle="buttons">
         <label class="btn btn-default"><input type="checkbox" id="allegro">Allegro</label>
+        <label class="btn btn-default"><input type="checkbox" id="aukcjefm">Aukcje FM</label>
         <label class="btn btn-default"><input type="checkbox" id="ebay">eBay</label>
         <label class="btn btn-default"><input type="checkbox" id="gumtree">Gumtree</label>
         <label class="btn btn-default"><input type="checkbox" id="sprzedajemy">Sprzedajemy.pl</label>
@@ -171,6 +174,7 @@
 
     // restore saved selection
     if (isSiteEnabled("allegro")) $('#allegro').parent().button('toggle');
+    if (isSiteEnabled("aukcjefm")) $('#aukcjefm').parent().button('toggle');
     if (isSiteEnabled("ebay")) $("#ebay").parent().button('toggle');
     if (isSiteEnabled("gumtree")) $("#gumtree").parent().button('toggle');
     if (isSiteEnabled("sprzedajemy")) $("#sprzedajemy").parent().button('toggle');
