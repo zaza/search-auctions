@@ -3,10 +3,9 @@ search-auctions
 
 [Przeszukuj kilka serwisów aukcyjnych równocześnie](http://zaza.github.io/search-auctions/).
 
-Aktualnie wspierane strony:
+Aktualnie wspierane serwisy:
 * Allegro
 * eBay
 * Gumtree
 * Sprzedajemy
-* Świstak
 * OLX (dawniej Tablica)

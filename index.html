@@ -11,7 +11,6 @@
   <script src="js/ebay.js"></script>
   <script src="js/gumtree.js"></script>
   <script src="js/sprzedajemy.js"></script>
-  <script src="js/swistak.js"></script>
   <script src="js/tablica.js"></script>
   <script type="text/javascript">
   var isFirstToOpen = true; // global on purpose
@@ -45,7 +44,6 @@
     openInNewTab("ebay", new Ebay(q, loc));
     openInNewTab("gumtree", new Gumtree(q, loc));
     openInNewTab("sprzedajemy", new Sprzedajemy(q, loc));
-    openInNewTab("swistak", new Swistak(q, loc));
     openInNewTab("tablica", new Tablica(q, loc));
   }
   function openInNewTab(id, handler) {
@@ -61,7 +59,7 @@
     } else {
       disableSite(id);
     }
-	}
+  }
   function isSiteDisabled(id) {
     if (typeof localStorage.disabled_sites != "undefined")
       return localStorage.disabled_sites.indexOf(id) != -1;
@@ -88,7 +86,7 @@
   function shouldShowAlert(id, was) {
     if (was === false) // don't return for 'undefined'
       return false;
-    var checkboxes=["allegro", "aukcjefm", "ebay", "gumtree", "sprzedajemy", "swistak", "tablica"];
+    var checkboxes=["allegro", "aukcjefm", "ebay", "gumtree", "sprzedajemy", "tablica"];
     for (var i = 0; i < checkboxes.length; i++) {
       if (id !== checkboxes[i] && $('#'+checkboxes[i]).parent().prop('class').indexOf('active') != -1)
         return false; // found active (checked) site
@@ -146,7 +144,6 @@
         <label class="btn btn-default"><input type="checkbox" id="ebay">eBay</label>
         <label class="btn btn-default"><input type="checkbox" id="gumtree">Gumtree</label>
         <label class="btn btn-default"><input type="checkbox" id="sprzedajemy">Sprzedajemy.pl</label>
-        <label class="btn btn-default"><input type="checkbox" id="swistak">Świstak</label>
         <label class="btn btn-default"><input type="checkbox" id="tablica">OLX (Tablica)</label>
       </div>
     </div>
@@ -178,7 +175,6 @@
     if (isSiteEnabled("ebay")) $("#ebay").parent().button('toggle');
     if (isSiteEnabled("gumtree")) $("#gumtree").parent().button('toggle');
     if (isSiteEnabled("sprzedajemy")) $("#sprzedajemy").parent().button('toggle');
-    if (isSiteEnabled("swistak")) $("#swistak").parent().button('toggle');
     if (isSiteEnabled("tablica")) $("#tablica").parent().button('toggle');
 
     if (!shouldShowAlert()) $(".alert").hide();
