@@ -11,6 +11,7 @@
   <script src="js/gumtree.js"></script>
   <script src="js/sprzedajemy.js"></script>
   <script src="js/tablica.js"></script>
+  <script src="js/sprzedawacz.js"></script>
   <script type="text/javascript">
   var isFirstToOpen = true; // global on purpose
   function search() {
@@ -31,6 +32,7 @@
       delete localStorage.selected_location;
     } else {
       loc = loc.toLowerCase();
+      loc = loc.replace('Ł', 'l');
       loc = loc.replace('ł', 'l');
       loc = loc.replace('ń', 'n');
       loc = loc.replace('ó', 'o');
@@ -43,6 +45,7 @@
     openInNewTab("gumtree", new Gumtree(q, loc));
     openInNewTab("sprzedajemy", new Sprzedajemy(q, loc));
     openInNewTab("tablica", new Tablica(q, loc));
+    openInNewTab("sprzedawacz", new Sprzedawacz(q, loc));
   }
   function openInNewTab(id, handler) {
     if (document.getElementById(id).checked) {
@@ -84,7 +87,7 @@
   function shouldShowAlert(id, was) {
     if (was === false) // don't return for 'undefined'
       return false;
-    var checkboxes=["allegro", "ebay", "gumtree", "sprzedajemy", "tablica"];
+    var checkboxes=["allegro", "ebay", "gumtree", "sprzedajemy", "tablica", "sprzedawacz"];
     for (var i = 0; i < checkboxes.length; i++) {
       if (id !== checkboxes[i] && $('#'+checkboxes[i]).parent().prop('class').indexOf('active') != -1)
         return false; // found active (checked) site
@@ -141,7 +144,8 @@
         <label class="btn btn-default"><input type="checkbox" id="ebay">eBay</label>
         <label class="btn btn-default"><input type="checkbox" id="gumtree">Gumtree</label>
         <label class="btn btn-default"><input type="checkbox" id="sprzedajemy">Sprzedajemy.pl</label>
-        <label class="btn btn-default"><input type="checkbox" id="tablica">OLX (Tablica)</label>
+        <label class="btn btn-default"><input type="checkbox" id="tablica">OLX</label>
+        <label class="btn btn-default"><input type="checkbox" id="sprzedawacz">Sprzedawacz.pl</label>
       </div>
     </div>
 
@@ -172,6 +176,7 @@
     if (isSiteEnabled("gumtree")) $("#gumtree").parent().button('toggle');
     if (isSiteEnabled("sprzedajemy")) $("#sprzedajemy").parent().button('toggle');
     if (isSiteEnabled("tablica")) $("#tablica").parent().button('toggle');
+    if (isSiteEnabled("sprzedawacz")) $("#sprzedawacz").parent().button('toggle');
 
     if (!shouldShowAlert()) $(".alert").hide();
 
